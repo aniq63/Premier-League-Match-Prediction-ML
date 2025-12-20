@@ -48,20 +48,16 @@ class DataIngestion:
         try:
             logging.info("Starting data ingestion process")
             df = self.export_data_as_dataframe()
-            train_data,test_data = self.split_data(df)
 
-            training_file_path = os.path.dirname(self.data_ingestion_config.training_file_path)
-            os.makedirs(training_file_path, exist_ok=True)
-            logging.info(f"Created directory: {training_file_path}")
+            ingestion_file_path = os.path.dirname(self.data_ingestion_config.raw_file_path)
+            os.makedirs(ingestion_file_path, exist_ok=True)
+            logging.info(f"Created directory: {ingestion_file_path}")
 
-            train_data.to_csv(self.data_ingestion_config.training_file_path,index=False,header=True)
-            logging.info(f"Training data saved to: {self.data_ingestion_config.training_file_path}")
-            
-            test_data.to_csv(self.data_ingestion_config.testing_file_path,index=False,header=True)
-            logging.info(f"Test data saved to: {self.data_ingestion_config.testing_file_path}")
+            df.to_csv(self.data_ingestion_config.raw_file_path, index=False, header=True)
+            logging.info(f"Raw data saved to: {self.data_ingestion_config.raw_file_path}")
 
-            data_ingestion_artifact = DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_file_path,
-            test_file_path=self.data_ingestion_config.testing_file_path)
+            data_ingestion_artifact = DataIngestionArtifact(trained_file_path=self.data_ingestion_config.raw_file_path,
+            test_file_path=self.data_ingestion_config.raw_file_path)
             
             logging.info("Data ingestion completed successfully")
             return data_ingestion_artifact

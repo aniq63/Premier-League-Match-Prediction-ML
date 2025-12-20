@@ -10,4 +10,8 @@ class DataValidationArtifact:
     validation_status:bool
     message: str
     validation_report_file_path: str
-    
+
+@dataclass
+class DataTransformationArtifcat:
+    transformed_trained_file_path : str
+    transforme_test_file_path : str
