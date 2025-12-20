@@ -1,4 +1,5 @@
 soccerdata
+lxml==4.9.4
 ipykernel
 pandas
 numpy

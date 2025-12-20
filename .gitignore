@@ -208,5 +208,6 @@ __marimo__/
 
 #files
 project_flow.txt
+.vscode
 #filders
 template.py
