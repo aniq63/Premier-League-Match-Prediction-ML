@@ -1,0 +1,47 @@
+columns:
+  _id: int
+  date: str
+  home_team: str
+  away_team: str
+  home_goals: int
+  away_goals: int
+  home_shots: int
+  away_shots: int
+  home_shots_on_target: int
+  away_shots_on_target: int
+  home_fouls: int
+  away_fouls: int
+  home_corners: int
+  away_corners: int
+  home_yellow: int
+  away_yellow: int
+  home_red: int
+  away_red: int
+  home_ht_goals: int
+  away_ht_goals: int
+  time: str
+
+categorical_columns:
+  - date
+  - home_team
+  - away_team
+  - time
+
+numerical_columns:
+  - _id
+  - home_goals
+  - away_goals
+  - home_shots
+  - away_shots
+  - home_shots_on_target
+  - away_shots_on_target
+  - home_fouls
+  - away_fouls
+  - home_corners
+  - away_corners
+  - home_yellow
+  - away_yellow
+  - home_red
+  - away_red
+  - home_ht_goals
+  - away_ht_goals
