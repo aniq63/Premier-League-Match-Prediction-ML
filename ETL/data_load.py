@@ -6,6 +6,9 @@ import pymongo
 import os
 
 
+from src.constants import DB_NAME, COLLECTION_NAME
+
+
 class DataLoad:
     """
     This Class iuse to load the data into Dataware house for future ML work
@@ -28,9 +31,6 @@ class DataLoad:
                     # Convert date objects to ISO format string
                     if hasattr(value, 'isoformat'):
                         record[key] = value.isoformat()
-
-            DB_NAME = "Soccer-Data"
-            COLLECTION_NAME = "PremierLeague-Matches-Data"
             
             logging.info("Make a connection with the MONGODB...")
             logging.info("Making a database and Collection...")
