@@ -252,7 +252,7 @@ class DataTransformation:
             logging.info("Creating DataTransformation artifact")
             data_transformation_artifact = DataTransformationArtifcat(
                 transformed_trained_file_path=self.data_transformation_config.transformed_training_file_path,
-                transforme_test_file_path=self.data_transformation_config.transformed_test_file_path
+                transformed_test_file_path=self.data_transformation_config.transformed_test_file_path
             )
             
             logging.info("Data transformation completed successfully")

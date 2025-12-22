@@ -40,4 +40,21 @@ class DataTransformationConfig:
     
     split_date : str = Train_Test_Split_Date
 
+@dataclass
+class ModelTrainingConfig:
+    model_training_dir : str = os.path.join(training_pipeline_config.artifact_dir,MODEL_DIR_NAME)
+    model_training_dir_name : str = os.path.join(model_training_dir,MODEL_NAME)
 
+    model  = MODEL
+
+@dataclass
+class ModelEvaluationConfig:
+    model_evaluation_dir : str = os.path.join(training_pipeline_config.artifact_dir, MODEL_EVALUATION_DIR)
+    model_evaluation_dir_name : str = os.path.join(model_evaluation_dir,MODEL_EVALUATION_DIR_NAME)
+    expected_accuracy : float = ACCURACY_THRESHOLD
+
+@dataclass
+class ModelPusherConfig:
+    model_pusher_dir: str = os.path.join(training_pipeline_config.artifact_dir, MODEL_PUSHER_DIR_NAME)
+    saved_model_dir: str = SAVED_MODEL_DIR
+    saved_model_path: str = os.path.join(SAVED_MODEL_DIR, MODEL_NAME)

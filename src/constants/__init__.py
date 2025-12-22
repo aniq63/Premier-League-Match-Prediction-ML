@@ -1,5 +1,7 @@
 import os
 from datetime import datetime
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 
 # Database MONGO DB constants
@@ -15,6 +17,7 @@ RAW_FILE_NAME: str = "raw.csv"
 TRAIN_TRANSFORMED_FILE_NAME: str = "train.csv"
 TEST_TRANSFORMED_FILE_NAME: str = "test.csv"
 SCHEMA_FILE_PATH = os.path.join("config", "schema.yaml")
+MODEL_NAME = 'model.pkl'
 
 
 # Data ingestion constants
@@ -34,4 +37,33 @@ DATA_VALIDATION_REPORT_FILE_NAME: str = "report.yaml"
 # Data Tansformation constants
 DATA_TRANSFORMATION_DIR_NAME = 'data_transformation'
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+
+# Model Training constants
+MODEL_DIR_NAME = 'model_training'
+# Model Parameter
+BASE_ESTIMATOR = DecisionTreeClassifier(
+    max_depth=2,
+    min_samples_split=2,
+    min_samples_leaf=1,
+    random_state=42
+)
+
+MODEL = AdaBoostClassifier(
+    estimator=BASE_ESTIMATOR,
+    n_estimators=200,
+    learning_rate=0.1,
+    random_state=42
+)
+
+# Model Evaluation constsnts
+MODEL_EVALUATION_DIR = 'model_evaluation'
+MODEL_EVALUATION_DIR_NAME = 'report'
+ACCURACY_THRESHOLD :float = 0.65
+
+# Model Pusher constants
+MODEL_PUSHER_DIR_NAME = 'model_pusher'
+SAVED_MODEL_DIR = 'saved_models'
+
+
+
 
