@@ -41,7 +41,7 @@ class ModelEvaluation:
             logging.info(f"Test data shape: {test_df.shape}")
             
             # Features (same as training)
-            input_features = ['hour',
+            input_features = [
                     'home_shots_on_target_avg_last5',
                     'away_shots_on_target_avg_last5',
                     'home_shots_avg_last5',

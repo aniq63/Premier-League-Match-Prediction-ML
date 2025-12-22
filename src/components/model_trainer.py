@@ -30,7 +30,7 @@ class ModelTraining:
             train_df = pd.read_csv(self.data_transformation_artifact.transformed_trained_file_path)
             logging.info(f"Training data shape: {train_df.shape}")
 
-            input_features = ['hour',
+            input_features = [
                     'home_shots_on_target_avg_last5',
                     'away_shots_on_target_avg_last5',
                     'home_shots_avg_last5',

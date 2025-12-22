@@ -42,10 +42,6 @@ class DataTransformation:
             # Convert the String type columns to DateTime
             df['date'] = pd.to_datetime(df['date'])
             df['time'] = pd.to_datetime(df['time'])
-
-            # Extract the starting hour from date column if not already present
-            if "hour" not in df.columns or df["hour"].isnull().any():
-                df["hour"] = df["time"].dt.hour
             
             # Add new column of goals conceded by home and away team
             df["away_team_goals_conceded"] = df['home_goals']
@@ -56,8 +52,7 @@ class DataTransformation:
                  "date",
                  "home_team",
                  "away_team",
-                 # Columsn for training purposes
-                 "hour",
+                 # Columns for training purposes
                  "home_goals",
                  "away_goals",
                  "home_shots_on_target",
