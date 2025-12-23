@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier League Match Predictor</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>⚽ Premier League Predictor</h1>
+            <p>Predict match outcomes using advanced machine learning</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Prediction Form -->
+            <div class="card">
+                <h2>Match Details</h2>
+                <form id="predictionForm">
+                    <div class="form-group">
+                        <label for="homeTeam">Home Team</label>
+                        <select id="homeTeam" name="homeTeam" required>
+                            <option value="">Select Home Team</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="awayTeam">Away Team</label>
+                        <select id="awayTeam" name="awayTeam" required>
+                            <option value="">Select Away Team</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="matchDate">Match Date</label>
+                        <input type="date" id="matchDate" name="matchDate" required>
+                    </div>
+
+                    <button type="submit" class="predict-btn" id="predictBtn">
+                        Predict Match Outcome
+                    </button>
+
+                    <div class="error-message" id="errorMessage"></div>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div class="card results-section" id="resultsSection">
+                <!-- Loading State -->
+                <div class="loading" id="loadingState">
+                    <div class="spinner"></div>
+                    <p>Analyzing match data...</p>
+                </div>
+
+                <!-- Results Display -->
+                <div id="resultsDisplay" style="display: none;">
+                    <h2>Prediction Results</h2>
+                    
+                    <div class="match-info">
+                        <div class="match-teams" id="matchTeams"></div>
+                        <div class="match-date" id="matchDateDisplay"></div>
+                    </div>
+
+                    <div class="prediction-result">
+                        <div class="prediction-label">Predicted Outcome</div>
+                        <div class="prediction-value" id="predictionValue"></div>
+                        <div class="confidence-value">
+                            Confidence: <span id="confidenceValue"></span>
+                        </div>
+                    </div>
+
+                    <div class="probabilities">
+                        <h3 style="margin-bottom: 20px; color: var(--epl-cyan);">Match Probabilities</h3>
+                        
+                        <div class="probability-item">
+                            <div class="probability-header">
+                                <span class="probability-label" id="homeWinLabel">Home Win</span>
+                                <span class="probability-percentage" id="homeWinPercentage">0%</span>
+                            </div>
+                            <div class="probability-bar-container">
+                                <div class="probability-bar" id="homeWinBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="probability-item">
+                            <div class="probability-header">
+                                <span class="probability-label">Draw</span>
+                                <span class="probability-percentage" id="drawPercentage">0%</span>
+                            </div>
+                            <div class="probability-bar-container">
+                                <div class="probability-bar" id="drawBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="probability-item">
+                            <div class="probability-header">
+                                <span class="probability-label" id="awayWinLabel">Away Win</span>
+                                <span class="probability-percentage" id="awayWinPercentage">0%</span>
+                            </div>
+                            <div class="probability-bar-container">
+                                <div class="probability-bar" id="awayWinBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by Machine Learning | Premier League Match Prediction API v1.0</p>
+        </footer>
+    </div>
+
+    <script>
+        // API Base URL
+        const API_BASE = window.location.origin;
+
+        // DOM Elements
+        const homeTeamSelect = document.getElementById('homeTeam');
+        const awayTeamSelect = document.getElementById('awayTeam');
+        const matchDateInput = document.getElementById('matchDate');
+        const predictionForm = document.getElementById('predictionForm');
+        const predictBtn = document.getElementById('predictBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultsSection = document.getElementById('resultsSection');
+        const loadingState = document.getElementById('loadingState');
+        const resultsDisplay = document.getElementById('resultsDisplay');
+
+        // Set default date to today
+        const today = new Date().toISOString().split('T')[0];
+        matchDateInput.value = today;
+
+        // Load teams on page load
+        async function loadTeams() {
+            try {
+                const response = await fetch(`${API_BASE}/teams`);
+                const data = await response.json();
+                
+                if (data.teams && data.teams.length > 0) {
+                    data.teams.forEach(team => {
+                        const option1 = document.createElement('option');
+                        option1.value = team;
+                        option1.textContent = team;
+                        homeTeamSelect.appendChild(option1);
+
+                        const option2 = document.createElement('option');
+                        option2.value = team;
+                        option2.textContent = team;
+                        awayTeamSelect.appendChild(option2);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                showError('Failed to load teams. Please refresh the page.');
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('active');
+            setTimeout(() => {
+                errorMessage.classList.remove('active');
+            }, 5000);
+        }
+
+        // Handle form submission
+        predictionForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const homeTeam = homeTeamSelect.value;
+            const awayTeam = awayTeamSelect.value;
+            const matchDate = matchDateInput.value;
+
+            // Validation
+            if (!homeTeam || !awayTeam || !matchDate) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            if (homeTeam === awayTeam) {
+                showError('Home and Away teams must be different');
+                return;
+            }
+
+            // Show loading state
+            resultsSection.classList.add('active');
+            loadingState.classList.add('active');
+            resultsDisplay.style.display = 'none';
+            predictBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        home_team: homeTeam,
+                        away_team: awayTeam,
+                        match_date: matchDate
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Prediction failed');
+                }
+
+                // Display results
+                displayResults(data);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError(error.message || 'Failed to get prediction. Please try again.');
+                resultsSection.classList.remove('active');
+            } finally {
+                loadingState.classList.remove('active');
+                predictBtn.disabled = false;
+            }
+        });
+
+        // Display prediction results
+        function displayResults(data) {
+            // Update match info
+            document.getElementById('matchTeams').textContent = 
+                `${data.home_team} vs ${data.away_team}`;
+            document.getElementById('matchDateDisplay').textContent = 
+                new Date(data.match_date).toLocaleDateString('en-GB', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+            // Update prediction
+            document.getElementById('predictionValue').textContent = data.prediction;
+            document.getElementById('confidenceValue').textContent = 
+                `${(data.confidence * 100).toFixed(1)}%`;
+
+            // Update probability labels with team names
+            document.getElementById('homeWinLabel').textContent = 
+                `${data.home_team} Win`;
+            document.getElementById('awayWinLabel').textContent = 
+                `${data.away_team} Win`;
+
+            // Update probabilities (ordered by home team perspective)
+            const homeWinProb = data.probabilities['Home Win'] || 0;
+            const drawProb = data.probabilities['Draw'] || 0;
+            const awayWinProb = data.probabilities['Away Win'] || 0;
+
+            // Animate probability bars
+            setTimeout(() => {
+                updateProbabilityBar('homeWinBar', 'homeWinPercentage', homeWinProb);
+                updateProbabilityBar('drawBar', 'drawPercentage', drawProb);
+                updateProbabilityBar('awayWinBar', 'awayWinPercentage', awayWinProb);
+            }, 100);
+
+            // Show results
+            resultsDisplay.style.display = 'block';
+        }
+
+        // Update probability bar with animation
+        function updateProbabilityBar(barId, percentageId, probability) {
+            const bar = document.getElementById(barId);
+            const percentage = document.getElementById(percentageId);
+            
+            const percentValue = (probability * 100).toFixed(1);
+            
+            bar.style.width = `${percentValue}%`;
+            percentage.textContent = `${percentValue}%`;
+        }
+
+        // Initialize
+        loadTeams();
+    </script>
+</body>
+</html>
