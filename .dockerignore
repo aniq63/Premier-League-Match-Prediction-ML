@@ -1,0 +1,142 @@
+# ============================================================================
+# .dockerignore - Files to exclude when building Docker image
+# ============================================================================
+# This file works like .gitignore but for Docker
+# It tells Docker which files/folders to NOT copy into the image
+# This reduces image size and build time
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# VERSION CONTROL
+# ----------------------------------------------------------------------------
+.git
+.gitignore
+.gitattributes
+
+# ----------------------------------------------------------------------------
+# PYTHON
+# ----------------------------------------------------------------------------
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Python egg files
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+
+# ----------------------------------------------------------------------------
+# JUPYTER NOTEBOOKS
+# ----------------------------------------------------------------------------
+# Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# ----------------------------------------------------------------------------
+# IDE AND EDITOR FILES
+# ----------------------------------------------------------------------------
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ----------------------------------------------------------------------------
+# LOGS AND DATABASES
+# ----------------------------------------------------------------------------
+# Log files (will be generated fresh in container)
+logs/
+*.log
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# ----------------------------------------------------------------------------
+# ARTIFACTS AND MODELS
+# ----------------------------------------------------------------------------
+# These are generated during training
+# Don't include in image (too large, will be mounted or downloaded)
+artifact/
+# saved_models/  # Uncomment if you want to exclude models
+
+# ----------------------------------------------------------------------------
+# DOCUMENTATION
+# ----------------------------------------------------------------------------
+# Documentation files (not needed in runtime image)
+*.md
+!README.md  # Keep README for reference
+docs/
+
+# ----------------------------------------------------------------------------
+# TESTING
+# ----------------------------------------------------------------------------
+# Test files and coverage reports
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ----------------------------------------------------------------------------
+# ENVIRONMENT FILES
+# ----------------------------------------------------------------------------
+# Environment variables (contain secrets)
+.env
+.env.local
+.env.*.local
+
+# ----------------------------------------------------------------------------
+# DOCKER FILES
+# ----------------------------------------------------------------------------
+# Don't include Docker files in the image
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# ----------------------------------------------------------------------------
+# CI/CD
+# ----------------------------------------------------------------------------
+# GitHub Actions and CI/CD configs
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# ----------------------------------------------------------------------------
+# TEMPORARY FILES
+# ----------------------------------------------------------------------------
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# ----------------------------------------------------------------------------
+# MISC
+# ----------------------------------------------------------------------------
+# License and contribution files
+LICENSE
+CONTRIBUTING.md
