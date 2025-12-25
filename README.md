@@ -16,7 +16,7 @@ The model is trained using data from the **most recent five seasons** and makes 
 
 ---
 
-## 🌐 Live Application
+## Live Application
 
 You can try the live version of the Premier League Match Prediction app here:  
 
@@ -24,22 +24,22 @@ You can try the live version of the Premier League Match Prediction app here:
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-- **🔄 Complete MLOps Pipeline**: End-to-end automated workflow from data ingestion to model deployment
-- **📊 ETL Pipeline**: Automated data extraction from multiple seasons using `soccerdata` library
-- **🎯 Advanced Feature Engineering**: Rolling statistics, team performance metrics, and match context features
-- **🤖 ML Training Pipeline**: 6-stage modular pipeline (Ingestion → Validation → Transformation → Training → Evaluation → Pusher)
-- **🚀 FastAPI REST API**: Production-ready API with automatic documentation
-- **💾 Model Versioning**: Automated model storage and version management
-- **📈 Real-time Predictions**: Predict match outcomes with probability distributions
-- **🎨 Web Interface**: Interactive UI for making predictions
-- **🔍 Data Validation**: Schema-based validation ensuring data quality
-- **📝 Comprehensive Logging**: Detailed logging throughout the pipeline
+- **Complete MLOps Pipeline**: End-to-end automated workflow from data ingestion to model deployment
+- **ETL Pipeline**: Automated data extraction from multiple seasons using `soccerdata` library
+- **Advanced Feature Engineering**: Rolling statistics, team performance metrics, and match context features
+- **ML Training Pipeline**: 6-stage modular pipeline (Ingestion → Validation → Transformation → Training → Evaluation → Pusher)
+- **FastAPI REST API**: Production-ready API with automatic documentation
+- **Model Versioning**: Automated model storage and version management
+- **Real-time Predictions**: Predict match outcomes with probability distributions
+- **Web Interface**: Interactive UI for making predictions
+- **Data Validation**: Schema-based validation ensuring data quality
+- **Comprehensive Logging**: Detailed logging throughout the pipeline
 
 ---
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 ```mermaid
 graph TB
@@ -73,7 +73,7 @@ graph TB
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Premier-League-Match-Prediction-ML/
@@ -134,7 +134,7 @@ Premier-League-Match-Prediction-ML/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -307,7 +307,7 @@ print(response.json())
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Core Technologies
 - **Python 3.8+**: Primary programming language
@@ -337,7 +337,7 @@ print(response.json())
 
 ---
 
-## 📊 ML Pipeline Stages
+##  ML Pipeline Stages
 
 ### 1. **Data Ingestion**
 - Fetches data from MongoDB
@@ -378,7 +378,7 @@ print(response.json())
 
 ---
 
-## 📖 Additional Documentation
+## Additional Documentation
 
 - **[API Documentation](API_DOCUMENTATION.md)**: Detailed API reference with all endpoints
 - **[Architecture Documentation](ARCHITECTURE.md)**: In-depth system architecture and design
@@ -387,7 +387,7 @@ print(response.json())
 
 ---
 
-## 🐳 Docker Support
+## Docker Support
 
 Build and run using Docker:
 
@@ -412,7 +412,7 @@ All operations are logged with timestamps and severity levels. Logs are stored i
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes:
 
@@ -430,7 +430,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Author
+## Author
 
 **Aniq**
 - GitHub: [@aniq63](https://github.com/aniq63)
@@ -438,7 +438,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **soccerdata** library for providing easy access to football data
 - Premier League for the exciting matches to predict!
