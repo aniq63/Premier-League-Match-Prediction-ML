@@ -2,6 +2,7 @@ import soccerdata as sd
 import pandas as pd
 from src.logger import logging
 from src.exception import MyException
+import sys
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -29,5 +30,5 @@ class DataExtraction:
             return df
         except Exception as e:
             logging.error("Error occurred during data extraction: {}".format(str(e)))
-            raise MyException(e)      
+            raise MyException(e,sys)      
         
