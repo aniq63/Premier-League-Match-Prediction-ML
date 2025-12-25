@@ -434,6 +434,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Aniq**
 - GitHub: [@aniq63](https://github.com/aniq63)
+- Email : aniqramzan5758@gmail.com
 
 ---
 
@@ -449,11 +450,12 @@ Special thanks to the following research paper, which played a significant role 
   🔗 https://www.scitepress.org/Papers/2024/134869/134869.pdf
 
 The methodologies and insights presented in this work—particularly around ensemble learning techniques and feature integration for football match prediction—were highly influential in shaping the overall machine learning approach of this project.
+
 ---
 
 ## 📧 Contact
 
-For questions or feedback, please open an issue on GitHub.
+For questions or feedback, please open an issue on Emial .
 
 ---
 
