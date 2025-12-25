@@ -6,7 +6,7 @@ import pymongo
 import os
 
 
-from src.constants import DB_NAME, COLLECTION_NAME
+from src.constants import DATABASE_NAME, COLLECTION_NAME
 
 
 class DataLoad:
@@ -38,7 +38,7 @@ class DataLoad:
             CONNECTION_URL = os.getenv("MONGODB_URL")
 
             client = pymongo.MongoClient(CONNECTION_URL)
-            data_base = client[DB_NAME]
+            data_base = client[DATABASE_NAME]
             collection = data_base[COLLECTION_NAME]
 
             logging.info("Push the data into Database")
