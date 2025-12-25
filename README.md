@@ -6,12 +6,12 @@
 [![MLOps](https://img.shields.io/badge/MLOps-Pipeline-orange.svg)]()
 
 An end-to-end **MLOps pipeline** for predicting English Premier League match outcomes using machine learning. This project features automated data processing, rolling statistics computation, model training, evaluation, versioning, and a production-ready FastAPI deployment.
-
 ---
+## 📌 Project Note
 
-## Project Note
-This project focuses on building an end-to-end ETL pipeline and machine learning pipeline for sports match prediction. The model achieves **70%** accuracy, which is considered strong performance given the inherently unpredictable nature of sports outcomes.
-The model is trained using the most recent five seasons of data and do predictions on the last 5 games avg stats , incorporating multiple relevant features to capture recent trends and performance patterns.
+This project focuses on building an **end-to-end ETL pipeline** and **machine learning pipeline** for sports match outcome prediction. The model achieves approximately **70% accuracy**, which is considered strong performance given the inherently **unpredictable nature of sports outcomes**.
+
+The model is trained using data from the **most recent five seasons** and makes predictions based on the **average statistics of the last 5 games** for each team. It incorporates multiple relevant features to capture recent trends and performance patterns, ensuring meaningful insights for match outcome predictions.
 ---
 
 ## 🌐 Live Application
