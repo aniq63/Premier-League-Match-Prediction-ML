@@ -9,6 +9,18 @@ An end-to-end **MLOps pipeline** for predicting English Premier League match out
 
 ---
 
+## Project Note
+This project focuses on building an end-to-end ETL pipeline and machine learning pipeline for sports match prediction. The model achieves **70%** accuracy, which is considered strong performance given the inherently unpredictable nature of sports outcomes.
+The model is trained using the most recent five seasons of data and do predictions on the last 5 games avg stats , incorporating multiple relevant features to capture recent trends and performance patterns.
+---
+
+## 🌐 Live Application
+
+You can try the live version of the Premier League Match Prediction app here:  
+
+🔗 [Premier League Match Prediction App](https://premier-league-match-prediction-ml--aniqramzan5758.replit.app)
+---
+
 ## 🌟 Key Features
 
 - **🔄 Complete MLOps Pipeline**: End-to-end automated workflow from data ingestion to model deployment
@@ -425,10 +437,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **soccerdata** library for providing easy access to football data
-- **FastAPI** for the excellent web framework
-- **scikit-learn** for machine learning capabilities
 - Premier League for the exciting matches to predict!
 
+Special thanks to the following research paper, which played a significant role in guiding the data preprocessing, feature engineering, and model training strategies used in this project:
+
+- **Feng, J. (2024).** *Supervised Machine Learning: Research on Predicting English Premier League Match Outcomes Based on an AdaBoost Classifier.*  
+  Proceedings of DAML 2024.  
+  🔗 https://www.scitepress.org/Papers/2024/134869/134869.pdf
+
+The methodologies and insights presented in this work—particularly around ensemble learning techniques and feature integration for football match prediction—were highly influential in shaping the overall machine learning approach of this project.
 ---
 
 ## 📧 Contact
