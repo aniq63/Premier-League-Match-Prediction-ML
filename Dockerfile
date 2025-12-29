@@ -2,17 +2,7 @@
 # DOCKERFILE FOR PREMIER LEAGUE MATCH PREDICTION ML PROJECT (Python 3.10)  
 # ============================================================================  
 
-# ----------------------------------------------------------------------------
-# BASE IMAGE
-# ----------------------------------------------------------------------------
 FROM python:3.10
-
-# ----------------------------------------------------------------------------
-# METADATA
-# ----------------------------------------------------------------------------
-LABEL maintainer="aniq63"
-LABEL description="Premier League Match Prediction API with FastAPI and ML"
-LABEL version="1.0.0"
 
 # ----------------------------------------------------------------------------
 # ENVIRONMENT VARIABLES
@@ -21,10 +11,12 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV APP_HOME=/app
 
+WORKDIR $APP_HOME
+
 # ----------------------------------------------------------------------------
 # SYSTEM DEPENDENCIES
 # ----------------------------------------------------------------------------
-RUN apt-get update && \
+RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
     build-essential \
     gcc \
@@ -32,23 +24,15 @@ RUN apt-get update && \
     libffi-dev \
     libssl-dev \
     python3-dev \
-    default-libmysqlclient-dev \
     libatlas-base-dev \
     gfortran \
     curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# ----------------------------------------------------------------------------
-# WORKING DIRECTORY
-# ----------------------------------------------------------------------------
-WORKDIR $APP_HOME
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # ----------------------------------------------------------------------------
 # PYTHON DEPENDENCIES
 # ----------------------------------------------------------------------------
 COPY requirements.txt .
-
-# Upgrade pip and install Python packages
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -64,7 +48,7 @@ RUN pip install --no-cache-dir -e .
 RUN mkdir -p logs artifact saved_models
 
 # ----------------------------------------------------------------------------
-# PERMISSIONS
+# NON-ROOT USER
 # ----------------------------------------------------------------------------
 RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser $APP_HOME
