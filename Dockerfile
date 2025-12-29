@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------------
 # BASE IMAGE
 # ----------------------------------------------------------------------------
-FROM python:3.10-slim
+FROM python:3.10
 
 # ----------------------------------------------------------------------------
 # METADATA
@@ -33,6 +33,8 @@ RUN apt-get update && \
     libssl-dev \
     python3-dev \
     default-libmysqlclient-dev \
+    libatlas-base-dev \
+    gfortran \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -46,6 +48,7 @@ WORKDIR $APP_HOME
 # ----------------------------------------------------------------------------
 COPY requirements.txt .
 
+# Upgrade pip and install Python packages
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
