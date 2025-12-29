@@ -1,11 +1,11 @@
-# 1. Use 3.11 to support scikit-learn 1.6.1
+# Use 3.11 because scikit-learn 1.6.1 requires Python 3.11+
 FROM python:3.11-bookworm
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 WORKDIR /app
 
-# 2. Add libxml2-dev and libxslt1-dev for lxml
+# Install system dependencies (including lxml and git if needed)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
@@ -20,11 +20,18 @@ RUN apt-get update && \
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
 
-# 3. Ensure your local folder has a setup.py or pyproject.toml 
-# if you keep this line. If not, delete it.
+# --- FIX START ---
+# We remove '-e .' from requirements.txt temporarily because setup.py isn't copied yet.
+# This prevents the "setup.py not found" error.
+RUN sed -i '/-e \./d' requirements.txt && \
+    pip install --no-cache-dir -r requirements.txt
+# --- FIX END ---
+
+# Now we copy the rest of the code (including setup.py and pyproject.toml)
 COPY . .
+
+# Now we can safely install the project itself
 RUN pip install --no-cache-dir -e .
 
 RUN mkdir -p logs artifact saved_models
