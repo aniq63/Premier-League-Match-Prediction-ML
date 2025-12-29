@@ -392,11 +392,11 @@ print(response.json())
 Build and run using Docker:
 
 ```bash
-# Build image
-docker build -t epl-prediction .
+# Pull image
+docker pull aniqramzan/pl-match-prediction:latest
 
 # Run container
-docker run -p 8000:8000 epl-prediction
+docker run -p 8000:8000 aniqramzan/pl-match-prediction
 ```
 
 ---
