@@ -21,6 +21,6 @@ jobs:
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
-          context:
+          context: .  # This ensures it finds your requirements.txt
           push: true
           tags: aniqramzan/pl-match-prediction:latest
