@@ -1,29 +1,18 @@
 name: Build and Push Docker Image
-# ------------------------------
-# Name of your workflow. This appears in GitHub Actions UI.
 
+# Trigger on any branch push
 on:
   push:
-    branches: [ "main" ]
-# ------------------------------
-# Trigger workflow automatically on push to the main branch.
-# You can also add pull_request or schedule triggers if needed.
+    branches: ["*"]
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-# ------------------------------
-# Define a job named 'build-and-push' running on latest Ubuntu VM.
-# Each job runs in a fresh VM (clean environment).
 
     steps:
-      # ------------------------------
       # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
-# ------------------------------
-# Checks out your code from GitHub.
-# This is required so Docker can access your Dockerfile and application files.
 
       # Step 2: Log in to Docker Hub
       - name: Login to Docker Hub
@@ -31,33 +20,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-# ------------------------------
-# Authenticates to Docker Hub using your GitHub secrets.
-# Without this step, GitHub Actions cannot push images to Docker Hub.
 
       # Step 3: Build and push Docker image
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .                              # <-- Where Docker build context is (repo root)
-          file: ./Dockerfile                      # <-- Explicitly point to your Dockerfile
-          push: true                              # <-- Push image to Docker Hub after build
+          context: .
+          file: ./Dockerfile
+          push: true
           tags: aniqramzan/pl-match-prediction:latest
           cache-from: type=registry,ref=aniqramzan/pl-match-prediction:latest
           cache-to: type=registry,ref=aniqramzan/pl-match-prediction:latest,mode=max
-# ------------------------------
-# context: . → Build everything in the repo root (Dockerfile + app code)
-# file: ./Dockerfile → Explicitly specify Dockerfile path
-# push: true → Push the built image to Docker Hub
-# tags → Name of your Docker Hub repository and tag
-# cache-from / cache-to → Enable layer caching to:
-#    1. Speed up builds
-#    2. Prevent failures for heavy ML dependencies
-#    3. Reuse layers from previous image builds
 
       # Step 4: Verify Docker images
       - name: List Docker images
         run: docker images
-# ------------------------------
-# Optional: Shows all images in the runner. Useful for debugging or verifying that
-# your image was built successfully in the GitHub Actions environment.
