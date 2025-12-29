@@ -18,21 +18,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Setup Buildx with container driver
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          driver: docker-container
-
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context:
           push: true
           tags: aniqramzan/pl-match-prediction:latest
-          cache-from: type=registry,ref=aniqramzan/pl-match-prediction:latest
-          cache-to: type=registry,ref=aniqramzan/pl-match-prediction:latest,mode=max
-
-      - name: List Docker images
-        run: docker images
